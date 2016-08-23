@@ -5,7 +5,7 @@ var bodyParser = require('body-parser');
 var ejs = require('ejs');
 var ejsmate = require('ejs-mate');
 
-var User = require('./models/user');
+//var User = require('./models/user');
 
 var app = express();
 
