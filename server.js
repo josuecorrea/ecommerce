@@ -8,11 +8,13 @@ var session = require('express-session');
 var cookieParser = require('cookie-parser');
 var flash = require('express-flash');
 
+
+var secret = require('./config/secret');
 var User = require('./models/user');
 
 var app = express();
 
-mongoose.connect('mongodb://localhost/ecommerce', function(err){
+mongoose.connect(secret.database, function(err){
   if(err){
     console.log('Erro ao conectar com o mongo');
   }else{
@@ -25,7 +27,7 @@ app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extend:true}));
 app.use(cookieParser());
-app.use(session({resave:true, saveUninitialized:true, secret:"josue#$@$@"}));
+app.use(session({resave:true, saveUninitialized:true, secret: secret.secretKey}));
 app.use(flash());
 
 app.engine('ejs', ejsmate);
@@ -36,7 +38,7 @@ var userRoutes = require('./routes/user');
 app.use(mainRoutes);
 app.use(userRoutes);
 
-app.listen(3000, function (err) {
+app.listen(secret.port, function (err) {
      if(err)throw err;
-     console.log('Online na porta: 3000' );
+     console.log('Online na porta: '+ secret.port);
 });
