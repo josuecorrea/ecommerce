@@ -8,7 +8,7 @@ var session = require('express-session');
 var cookieParser = require('cookie-parser');
 var flash = require('express-flash');
 
-//var User = require('./models/user');
+var User = require('./models/user');
 
 var app = express();
 
@@ -24,9 +24,9 @@ app.use(express.static(__dirname + '/public'));
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extend:true}));
-app.use(cookieParser);
+app.use(cookieParser());
 app.use(session({resave:true, saveUninitialized:true, secret:"josue#$@$@"}));
-app.use(flash);
+app.use(flash());
 
 app.engine('ejs', ejsmate);
 app.set('view engine','ejs');
