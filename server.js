@@ -33,6 +33,10 @@ app.use(session({resave:true, saveUninitialized:true, secret: secret.secretKey, 
 app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(function(req, res, next){
+  res.locals.user = req.user;
+  next();
+});
 
 app.engine('ejs', ejsmate);
 app.set('view engine','ejs');
