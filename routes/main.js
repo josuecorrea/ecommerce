@@ -1,4 +1,5 @@
 var router = require('express').Router();
+var Product = require('../models/product');
 
 router.get('/', function (req, res) {
      res.render('main/home');
@@ -13,9 +14,9 @@ router.get('/products/:id', function(req, res, next){
       .find({ category: req.params.id})
       .populate('category')
       .exec(function(err, products){
-        res.render('main/category',{
-          products:products
-        });
+        if(err) return next(err);
+        // res.json(products);
+          res.render('main/category',{ products:products }); 
       });
 });
 
